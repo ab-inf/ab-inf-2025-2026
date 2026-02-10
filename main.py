@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 def main(dirs):
-    theme_path = "../../theme.css"
+    theme_path = "theme.css"
     for dir_name in dirs:
         lesson_path = Path("lessons") / dir_name
         if not lesson_path.is_dir():
@@ -15,11 +15,11 @@ def main(dirs):
         for md_file in lesson_path.glob("*.md"):
             print(f"  - Generating HTML and PPTX for {md_file.name}")
             commands = [
-                ["npx", "@marp-team/marp-cli@latest", str(md_file.name), "-o", str(md_file.with_suffix(".html")), "--theme", theme_path],
-                ["npx", "@marp-team/marp-cli@latest", str(md_file.name), "-o", str(md_file.with_suffix(".pptx")), "--theme", theme_path, "--allow-local-files"]
+                ["npx", "@marp-team/marp-cli@latest", str(md_file), "-o", str(md_file.with_suffix(".html")), "--theme", theme_path],
+                ["npx", "@marp-team/marp-cli@latest", str(md_file), "-o", str(md_file.with_suffix(".pptx")), "--theme", theme_path, "--allow-local-files"]
             ]
             for cmd in commands:
-                subprocess.run(cmd, check=True, cwd=lesson_path)
+                subprocess.run(cmd, check=True)
     
 
 if __name__ == "__main__":
